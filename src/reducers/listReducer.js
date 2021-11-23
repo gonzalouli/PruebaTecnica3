@@ -6,6 +6,14 @@ const initialState = [
             id: 0,
             text: "This is the first task"
         }]
+    },
+    {
+        title: "second list",
+        id: 1,
+        cards: [{
+            id: 1,
+            text: "This is the second task"
+        }]
     }
 ]
 

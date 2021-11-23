@@ -1,7 +1,7 @@
 import { Card } from '@mui/material';
 import React from 'react';
 import CardComponent from './CardComponent';
- 
+
 
 export default function ListComponent({title, cards}) {
     return (
@@ -17,6 +17,8 @@ const styles = {
         backgroundColor: "#ccc",
         borderRarius:3,
         width: 250,
-        padding: 8
+        padding: 8.5,
+        marginRight: 8
+
     }
 }

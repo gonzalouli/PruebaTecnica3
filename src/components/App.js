@@ -7,20 +7,23 @@ function App(props) {
   const {lists} = props
 
   return (
-    <div className="App">
+    <div className="App" style={styles.bgColor}>
       <h2>Mi Trello</h2>
       <div style={styles.container}>
-      {lists.map( list => <ListComponent title={list.title}
+      {lists.map( list => <ListComponent key = {list.id} title={list.title}
       cards={list.cards} /> )}
       </div>
     </div>
   );
 }
 
-const styles = {
+export const styles = {
   container: {
     display: "flex",
     flexDirection: "row",
+  },
+  bgColor: {
+    backgroundColor: "aquamarine"
   }
 }
 

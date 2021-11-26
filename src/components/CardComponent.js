@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 export default function CardComponent({text}) {
     return (
-        <Card>
+        <Card style= {styles.card}>
             <CardContent style={styles.container}>
                 <Typography gutterBottom>
                 {text}
@@ -23,6 +23,9 @@ export default function CardComponent({text}) {
 
 const styles = {
     container: {
-        marginBottom: 8
+        marginBottom: 4
+    },
+    card:{
+        margin: 10
     }
 }

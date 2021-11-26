@@ -1,22 +1,22 @@
 import { CONSTS } from "../actions";
 
-let idList = 4
-let idCard = 4
+let idList = 2
+let idCard = 2
 
 const initialState = [
     {
         title: "First list",
-        id: 0,
+        id: `list-${0}`,
         cards: [{
-            id: -1,
+            id: `card-${0}`,
             text: "This is the first task"
         }]
     },
     {
         title: "second list",
-        id: 1,
+        id: `list-${1}`,
         cards: [{
-            id: 0,
+            id: `list-${1}`,
             text: "This is the second task"
         }]
     }
@@ -29,16 +29,17 @@ const listReducer = (state = initialState, action)=>{
             const newList = {
                 title: action.payload,
                 cards: [],
-                id: ++idList
+                id: `list-${idList}`
             }
+            idList++
             return [...state, newList]
 
         case CONSTS.ADD_CARD:
             const newCard = {
                 text: action.payload.text,
-                id: ++idCard,
+                id: `card-${idCard}`,
             }
-
+            idCard++
             const newState = state.map(list => {
                 if(list.id===action.payload.idList)
                     return {
@@ -50,6 +51,22 @@ const listReducer = (state = initialState, action)=>{
             
             })
             return newState;
+        case CONSTS.DRAGGING:
+            const {    
+                droppableIdStart,
+                droppableIdEnd,
+                droppableIndexStart,
+                droppableIndexEnd,
+                draggableId} = action.payload
+            const modState = [...state]
+            //en la misma liusta
+            if(droppableIdStart===droppableIdEnd){
+                const newlist = state.find( list =>
+                    droppableIdStart===list.id)
+                const card = newlist.cards.splice(droppableIndexStart, 1)
+                newlist.cards.splice(droppableIndexEnd, 0, ...card)
+            }
+            return modState
 
         default: 
             return state;

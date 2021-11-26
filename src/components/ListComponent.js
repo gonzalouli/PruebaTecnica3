@@ -1,17 +1,34 @@
 import React from 'react';
 import CardComponent from './CardComponent';
 import CardFormComponent from './CardFormComponent';
+import { Droppable } from 'react-beautiful-dnd';
 
 export default function ListComponent({title, cards, idList}) {
     return (
-        <div style={styles.container}>
-            <h3>{title}</h3>
-            {
-                cards.map(card => <CardComponent key={card.id} text={card.text} /> )
+        <Droppable droppableId={String(idList)}>
+            { (provided)=>{
+                <div  
+                    {...provided.droppableProps}
+                    ref={provided.innerRef} 
+                    style={styles.container}>
+                    <h4>{title}</h4>
+                    {
+                        cards.map((card, index) => 
+                            <CardComponent 
+                                key={card.id} 
+                                text={card.text} 
+                                id={card.id}
+                                index={index}
+                                /> 
+                            )
+                    
+                    }
+                    <CardFormComponent idList={idList}/>
+                    {provided.placeholder}
+                </div>
+            }}
             
-            }
-            <CardFormComponent idList={idList}/>
-        </div>
+        </Droppable>
     )
 }
 

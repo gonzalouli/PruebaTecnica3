@@ -1,23 +1,27 @@
 import React from 'react'
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Draggable } from 'react-beautiful-dnd';
 
-export default function CardComponent({text}) {
+export default function CardComponent({text,id,index}) {
     return (
-        <Card style= {styles.card}>
-            <CardContent style={styles.container}>
-                <Typography gutterBottom>
-                {text}
-                </Typography>
-            </CardContent>
-        {/* <CardActions>
-            <Button size="small">Learn More</Button>
-        </CardActions> */}
-        </Card>
+        <Draggable draggableId={String(id)} index={index}>
+            {provided => (
+                <div ref={provided.innerRef} 
+                    {...provided.draggableProps} 
+                    {...provided.dragHandleProps}>
+                    <Card style= {styles.card}>
+                        <CardContent style={styles.container}>
+                            <Typography gutterBottom>
+                            {text}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </div>
+            )}
+        </Draggable>
+
         )
 }
 

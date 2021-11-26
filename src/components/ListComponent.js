@@ -1,9 +1,8 @@
-import { Card } from '@mui/material';
 import React from 'react';
 import CardComponent from './CardComponent';
 import CardFormComponent from './CardFormComponent';
 
-export default function ListComponent({title, cards}) {
+export default function ListComponent({title, cards, idList}) {
     return (
         <div style={styles.container}>
             <h3>{title}</h3>
@@ -11,7 +10,7 @@ export default function ListComponent({title, cards}) {
                 cards.map(card => <CardComponent key={card.id} text={card.text} /> )
             
             }
-            <CardFormComponent  />
+            <CardFormComponent idList={idList}/>
         </div>
     )
 }

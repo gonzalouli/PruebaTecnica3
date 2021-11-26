@@ -2,12 +2,32 @@ import { Card , Button} from '@mui/material';
 import React from 'react'
 import { VscDiffAdded , VscTrash} from "react-icons/vsc";
 import TextareaAutosize from 'react-textarea-autosize';
+import {connect} from 'react-redux'
+import {addList, addCard} from "../actions"
 
 class CardFormComponent extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {open: false, text: ""};
+    }
+
+    handleAddList = ()=>{
+        const {dispatch} = this.props
+        const {text} = this.state        
+        if(text!=="" ){
+            dispatch(addList(text))
+        }
+        return;
+    }
+
+    handleAddCard = ()=>{
+        const {dispatch, idList} = this.props
+        const {text} = this.state
+        if(text!=="" ){
+            dispatch(addCard(idList, text))
+        }
+        return;
     }
 
     openForm = ()=>{
@@ -25,7 +45,7 @@ class CardFormComponent extends React.Component {
 
 
         return (
-            <div onClick={this.openForm}>
+            <div onClick={this.openForm} style={{height:50, fontWeight: 'bolder'}}>
                 <p><VscDiffAdded/>{textOfButton}</p>
             </div>
         )
@@ -63,11 +83,10 @@ class CardFormComponent extends React.Component {
                 </Card>
                 <div style={styles.buttonStyle}>
                     <Button 
-                    variant="contained" 
-                    style={{fontSize: 10}}>
+                    variant="contained" onMouseDown={list ? this.handleAddList : this.handleAddCard} >
                         {buttonText}{" "}
                     </Button>
-                    <VscTrash style={{backgroundColor:"red", fontSize:30, marginLeft: 30, borderRadius:4 }}/>
+                    <VscTrash style={{backgroundColor:"red", fontSize:30, marginLeft: 10, borderRadius:4 }}/>
                 </div>
             </div>
         )
@@ -87,4 +106,4 @@ const styles ={
     }
 }
 
-export default CardFormComponent
+export default connect()(CardFormComponent)

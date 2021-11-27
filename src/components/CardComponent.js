@@ -6,11 +6,11 @@ import { Draggable } from 'react-beautiful-dnd';
 
 export default function CardComponent({text,id,index}) {
     return (
-        <Draggable draggableId={String(id)} index={index}>
-            {provided => (
-                <div ref={provided.innerRef} 
-                    {...provided.draggableProps} 
-                    {...provided.dragHandleProps}>
+        <Draggable draggableId={id.toString()} index={index}>
+            {(provided) => (
+                <div ref={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}>
                     <Card style= {styles.card}>
                         <CardContent style={styles.container}>
                             <Typography gutterBottom>

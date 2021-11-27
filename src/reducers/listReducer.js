@@ -1,7 +1,7 @@
 import { CONSTS } from "../actions";
 
-let idList = 2
-let idCard = 2
+let idList = 1
+let idCard = 1
 
 const initialState = [
     {
@@ -10,14 +10,6 @@ const initialState = [
         cards: [{
             id: `card-${0}`,
             text: "This is the first task"
-        }]
-    },
-    {
-        title: "second list",
-        id: `list-${1}`,
-        cards: [{
-            id: `list-${1}`,
-            text: "This is the second task"
         }]
     }
 ]
@@ -31,7 +23,7 @@ const listReducer = (state = initialState, action)=>{
                 cards: [],
                 id: `list-${idList}`
             }
-            idList++
+            idList+=1
             return [...state, newList]
 
         case CONSTS.ADD_CARD:
@@ -39,7 +31,7 @@ const listReducer = (state = initialState, action)=>{
                 text: action.payload.text,
                 id: `card-${idCard}`,
             }
-            idCard++
+            idCard+=1
             const newState = state.map(list => {
                 if(list.id===action.payload.idList)
                     return {
@@ -67,6 +59,21 @@ const listReducer = (state = initialState, action)=>{
                 newlist.cards.splice(droppableIndexEnd, 0, ...card)
             }
             return modState
+
+        case CONSTS.MOVE_TO_COL: 
+            const {source, destination, droppableSource, droppableDestination} = action.payload
+            const sourceClone = Array.from(source);
+            const destClone = Array.from(destination);
+            const [removed] = sourceClone.splice(droppableSource.index, 1);
+        
+            destClone.splice(droppableDestination.index, 0, removed);
+        
+            const result = {};
+            result[droppableSource.droppableId] = sourceClone;
+            result[droppableDestination.droppableId] = destClone;
+        
+            return result;
+
 
         default: 
             return state;

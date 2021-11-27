@@ -32,3 +32,20 @@ export const sort =(
         }
     }
 }
+
+export const move = (
+    source, 
+    destination, 
+    droppableSource, 
+    droppableDestination
+    ) => {
+    return {
+        type: CONSTS.MOVE_TO_COL,
+        payload: {
+            source,
+            destination, 
+            droppableSource, 
+            droppableDestination
+        }
+    }
+  };

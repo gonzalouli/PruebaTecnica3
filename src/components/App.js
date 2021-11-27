@@ -3,7 +3,7 @@ import ListComponent from './ListComponent';
 import {connect} from 'react-redux';
 import CardFormComponent from './CardFormComponent';
 import {DragDropContext} from 'react-beautiful-dnd'
-import { sort } from '../actions'
+import { sort, move} from '../actions'
 
 class App extends React.Component{
 
@@ -17,6 +17,14 @@ class App extends React.Component{
         return
       }
 
+      if(source.droppableId!=dest.droppableId)
+        this.props.dispatch(move(
+            source,
+            dest, 
+            source.droppableSource, 
+            dest.droppableDestination
+        ))
+
       this.props.dispatch(sort(
         source.droppableId,
         dest.droppableId,
@@ -27,20 +35,24 @@ class App extends React.Component{
     }
 
     return (
-      <DragDropContext onDragEnd={onDragEnd}>
+      
       <div className="App" style={styles.bgColor}>
         <h2>Mi Trello</h2>
         <div style={styles.container}>
-          {lists.map( list => 
-            <ListComponent 
-              idList={list.id} 
-              key = {list.id} 
-              title={list.title}
-              cards={list.cards} /> )}
+          {lists.map( (list,index) => 
+            <DragDropContext onDragEnd={onDragEnd}>
+              <ListComponent 
+                idList={list.id} 
+                key = {list.id} 
+                title={list.title}
+                cards={list.cards}
+                index={index}
+                />
+              </DragDropContext>
+           )}
           <CardFormComponent list/>
         </div>
       </div>
-      </DragDropContext>
     );
   }
 }

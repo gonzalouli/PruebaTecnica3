@@ -3,36 +3,28 @@ import ListComponent from './ListComponent';
 import {connect} from 'react-redux';
 import CardFormComponent from './CardFormComponent';
 import {DragDropContext} from 'react-beautiful-dnd'
-import { sort, move} from '../actions'
+import { sort } from '../actions'
 
 class App extends React.Component{
 
+   onDragEnd =(result)=>{
+    const {dest, source, draggableId} =result
+
+    if(!dest){
+      return
+    }
+
+    this.props.dispatch(sort(
+      source.droppableId,
+      dest.droppableId,
+      source.index,
+      dest.index,
+      draggableId))
+
+  }
+
     render(){
     const {lists} = this.props
-
-    const onDragEnd =(result)=>{
-      const {dest, source, draggableId} =result
-
-      if(!dest){
-        return
-      }
-
-      if(source.droppableId!=dest.droppableId)
-        this.props.dispatch(move(
-            source,
-            dest, 
-            source.droppableSource, 
-            dest.droppableDestination
-        ))
-
-      this.props.dispatch(sort(
-        source.droppableId,
-        dest.droppableId,
-        source.index,
-        dest.index,
-        draggableId))
-
-    }
 
     return (
       
@@ -40,10 +32,10 @@ class App extends React.Component{
         <h2>Mi Trello</h2>
         <div style={styles.container}>
           {lists.map( (list,index) => 
-            <DragDropContext onDragEnd={onDragEnd}>
+            <DragDropContext onDragEnd={this.onDragEnd}>
               <ListComponent 
                 idList={list.id} 
-                key = {list.id} 
+                key = {list.id+index} 
                 title={list.title}
                 cards={list.cards}
                 index={index}

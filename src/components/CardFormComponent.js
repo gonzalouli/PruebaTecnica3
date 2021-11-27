@@ -18,6 +18,7 @@ class CardFormComponent extends React.Component {
         if(text!=="" ){
             dispatch(addList(text))
         }
+        this.setState({text: ""})
         return;
     }
 
@@ -27,6 +28,7 @@ class CardFormComponent extends React.Component {
         if(text!=="" ){
             dispatch(addCard(idList, text))
         }
+        this.setState({text: ""})
         return;
     }
 
@@ -53,6 +55,7 @@ class CardFormComponent extends React.Component {
 
     handleInput = (e)=>{
         this.setState({text: e.target.value})
+    
     }
 
     formOpened = ()=>{

@@ -67,6 +67,7 @@ class CardFormComponent extends React.Component {
 
         return (
             <div>
+                
                 <Card style={{ minHeight: 50, minWidth: 50}}>  
                     <TextareaAutosize 
                     placeholder={textToShow} 

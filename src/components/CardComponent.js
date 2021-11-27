@@ -1,35 +1,48 @@
+import { Card , Button} from '@mui/material';
 import React from 'react'
-import Card from '@mui/material/Card';
+import { VscDiffAdded , VscTrash} from "react-icons/vsc";
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Draggable } from 'react-beautiful-dnd';
+import styled from "styled-components"
+import {connect} from 'react-redux'
+import {deleteCard} from '../actions'
 
-export default function CardComponent({text,id,index}) {
+
+const CardContainer = styled.div`
+    margin-bottom: 8px;
+`
+
+const CardComponent=React.memo(({text,id,index,idList, dispatch})=> {
+
+    const delCard = (e)=>{
+        dispatch(deleteCard(id, idList));
+    }
+
     return (
         <Draggable draggableId={id.toString()} index={index}>
             {(provided) => (
-                <div ref={provided.innerRef}
+                <CardContainer ref={provided.innerRef}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}>
-                    <Card style= {styles.card}>
-                        <CardContent style={styles.container}>
+                    <Card >
+                        <CardContent >
                             <Typography gutterBottom>
                             {text}
                             </Typography>
+                            <button 
+                                variant="contained" onClick={delCard} >
+                                    <VscTrash style={{backgroundColor:"red", fontSize:27, marginLeft: 10, borderRadius:4 }}/>
+                                </button>
+                               
                         </CardContent>
                     </Card>
-                </div>
+                {provided.placeholder}
+                </CardContainer>
             )}
         </Draggable>
 
         )
-}
+})
 
-const styles = {
-    container: {
-        marginBottom: 4
-    },
-    card:{
-        margin: 10
-    }
-}
+export default connect()(CardComponent);

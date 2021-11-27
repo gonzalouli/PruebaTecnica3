@@ -52,10 +52,20 @@ const listReducer = (state = initialState, action)=>{
             droppableIdEnd,
             droppableIndexStart,
             droppableIndexEnd,
-            draggableId
+            draggableId,
+            type
             } = action.payload
             
         const modState = [...state]
+
+        //si es lista
+        if(type==="list"){
+            const list = modState.splice(droppableIndexStart, 1)
+            modState.splice(droppableIndexEnd,0,...list)
+            return modState
+        }
+
+
         //en la misma lista
         if(droppableIdStart===droppableIdEnd){
             const list = state.find( list =>
@@ -76,6 +86,24 @@ const listReducer = (state = initialState, action)=>{
 
         return modState
     }
+
+    if(action.type===CONSTS.DELETE_CARD){
+        const { id, idList } = action.payload;
+        
+        const modState = [...state]
+
+        const list = state.find(list=> idList===list.id)
+        list.cards.splice(id,1)
+        
+        return modState
+    }
+
+    // if(action.type===CONSTS.EDIT_CARD){
+    //     const { id, newText } = action.payload;
+    //     const card = state[id];
+    //     card.text = newText;
+    //     return { ...state, [`card-${id}`]: card };
+    // }
 
     return state
 }

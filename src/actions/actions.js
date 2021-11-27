@@ -14,12 +14,27 @@ export const addCard = (idList, text) =>{
     };
 }
 
+export const deleteCard = (id, idList) => {
+    return {
+      type: CONSTS.DELETE_CARD,
+      payload: { id, idList }
+    };
+  };
+
+export const editCard = (id, idList, newText) => {
+return {
+    type: CONSTS.EDIT_CARD,
+    payload: { id, idList, newText }
+};
+};
+
 export const sort =(
     droppableIdStart,
     droppableIdEnd,
     droppableIndexStart,
     droppableIndexEnd,
-    draggableId
+    draggableId,
+    type
 )=>{
     return {
         type: CONSTS.DRAG,
@@ -28,7 +43,8 @@ export const sort =(
             droppableIdEnd,
             droppableIndexStart,
             droppableIndexEnd,
-            draggableId
+            draggableId,
+            type
         }
     }
 }

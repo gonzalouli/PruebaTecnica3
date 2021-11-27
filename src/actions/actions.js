@@ -22,7 +22,7 @@ export const sort =(
     draggableId
 )=>{
     return {
-        type: CONSTS.DRAGGING,
+        type: CONSTS.DRAG,
         payload: {
             droppableIdStart,
             droppableIdEnd,

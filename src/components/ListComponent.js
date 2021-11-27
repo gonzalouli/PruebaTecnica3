@@ -4,8 +4,8 @@ import CardFormComponent from './CardFormComponent';
 import { Droppable } from 'react-beautiful-dnd';
 
 export default function ListComponent({title, cards, idList}) {
-    console.log(title)
 
+    // cards.forEach(card=>console.log(card))
 
     return (
         title!=="First list" &&

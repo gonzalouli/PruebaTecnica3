@@ -16,9 +16,9 @@ const initialState = [
 
 
 const listReducer = (state = initialState, action)=>{
-    console.log(action.type)
-    switch (action.type){
-        case CONSTS.ADD_LIST:{
+
+    if (action.type===CONSTS.ADD_LIST){
+
             const newList = {
                 title: action.payload,
                 cards: [],
@@ -26,8 +26,8 @@ const listReducer = (state = initialState, action)=>{
             }
             idList+=1
             return [...state, newList]
-        }
-        case CONSTS.ADD_CARD:{
+    }
+    if(action.type===CONSTS.ADD_CARD){
             const newCard = {
                 text: action.payload.text,
                 id: `card-${idCard}`,
@@ -44,38 +44,41 @@ const listReducer = (state = initialState, action)=>{
             
             })
             return newState;
-        }
-        case CONSTS.DRAG:{
-            const {    
-                droppableIdStart,
-                droppableIdEnd,
-                droppableIndexStart,
-                droppableIndexEnd,
-                draggableId} = action.payload
-            const modState = [...state]
-            //en la misma lista
-            if(droppableIdStart===droppableIdEnd){
-                const list = state.find( list =>
-                    droppableIdStart===list.id)
-                    const card = list.cards.splice(droppableIndexStart, 1)
-                    list.cards.splice(droppableIndexEnd, 0, ...card)
-            }
-
-            //a otra lista
-            if(droppableIdStart!== droppableIdEnd){
-                const listGet = modState.find(list => droppableIdStart ===list.id)
-                const auxCard = listGet.cards.slice(droppableIndexStart, 1)
-                const listDrop = modState.find(list =>droppableIdEnd=== list.id)
-
-                listDrop.cards.splice(droppableIndexEnd, 0, ...auxCard)
-            }
-
-            return modState
-        }
-
-        default: 
-            return state;
     }
+    if(action.type===CONSTS.DRAG){
+        console.log(action.payload)
+        const {    
+            droppableIdStart,
+            droppableIdEnd,
+            droppableIndexStart,
+            droppableIndexEnd,
+            draggableId
+            } = action.payload
+            
+        const modState = [...state]
+        //en la misma lista
+        if(droppableIdStart===droppableIdEnd){
+            const list = state.find( list =>
+                droppableIdStart===list.id)
+                const card = list.cards.splice(droppableIndexStart, 1)
+                list.cards.splice(droppableIndexEnd, 0, ...card)
+        }
+        //a otra lista
+        if(droppableIdStart!==droppableIdEnd){
+            const listStart = state.find(list => droppableIdStart ===list.id)
+
+            const auxCard = listStart.cards.splice(droppableIndexStart, 1)
+
+            const listDrop = state.find(list => droppableIdEnd=== list.id)
+
+            listDrop.cards.splice(droppableIndexEnd, 0, ...auxCard)
+        }
+
+        return modState
+    }
+
+    return state
 }
+
 
 export default listReducer

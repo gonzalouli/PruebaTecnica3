@@ -7,44 +7,46 @@ import { sort } from '../actions'
 
 class App extends React.Component{
 
-   onDragEnd =(result)=>{
-    const {dest, source, draggableId} =result
+   onDragEnd = result =>{
+    const {destination, source, draggableId} = result
 
-    if(!dest){
+    if(!destination){
       return
     }
 
     this.props.dispatch(sort(
       source.droppableId,
-      dest.droppableId,
+      destination.droppableId,
       source.index,
-      dest.index,
+      destination.index,
       draggableId))
 
   }
 
-    render(){
+  render(){
     const {lists} = this.props
+    // lists.forEach(item=>console.log(item))
 
     return (
-      
+      <DragDropContext onDragEnd={this.onDragEnd}>
+
       <div className="App" style={styles.bgColor}>
         <h2>Mi Trello</h2>
         <div style={styles.container}>
           {lists.map( (list,index) => 
-            <DragDropContext onDragEnd={this.onDragEnd}>
               <ListComponent 
                 idList={list.id} 
-                key = {list.id+index} 
+                key = {list.id} 
                 title={list.title}
                 cards={list.cards}
                 index={index}
                 />
-              </DragDropContext>
-           )}
+          )}
           <CardFormComponent list/>
         </div>
       </div>
+      </DragDropContext>
+
     );
   }
 }

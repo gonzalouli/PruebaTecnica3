@@ -34,7 +34,6 @@ const CardComponent=React.memo(({text,id,index,idList, dispatch})=> {
                                 variant="contained" onClick={delCard} >
                                     <VscTrash style={{backgroundColor:"red", fontSize:27, marginLeft: 10, borderRadius:4 }}/>
                                 </button>
-                               
                         </CardContent>
                     </Card>
                 {provided.placeholder}

@@ -28,6 +28,14 @@ return {
 };
 };
 
+export const deleteCol = (idList) => {
+    console.log(idList)
+    return {
+        type: CONSTS.REMOVE_LIST,
+        payload: {idList}
+    };
+};
+
 export const sort =(
     droppableIdStart,
     droppableIdEnd,

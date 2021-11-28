@@ -98,6 +98,16 @@ const listReducer = (state = initialState, action)=>{
         return modState
     }
 
+    if(action.type===CONSTS.REMOVE_LIST){
+        console.log("llega al reducer")
+        const { idList } = action.payload;
+        console.log(idList)
+
+        const modState = state.filter(list=> list.id!==idList)
+
+        return modState
+    }
+
     // if(action.type===CONSTS.EDIT_CARD){
     //     const { id, newText } = action.payload;
     //     const card = state[id];

@@ -47,7 +47,7 @@ class App extends React.Component{
               <ListContainer 
               {...provided.droppableProps} 
                 ref={provided.innerRef}>
-                {lists.map( (list,index) => 
+                {lists.map( (list,index) => list.title !="First list" &&
                     <ListComponent 
                       idList={list.id} 
                       key = {list.id} 

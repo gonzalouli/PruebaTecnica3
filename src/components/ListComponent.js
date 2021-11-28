@@ -4,6 +4,8 @@ import CardFormComponent from './CardFormComponent';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import styled from "styled-components"
 import {connect} from 'react-redux';
+import { VscDiffAdded , VscTrash} from "react-icons/vsc";
+import { deleteCol } from '../actions/actions';
 
 const ListContainer= styled.div`
     background-color: #F3FF8C;
@@ -14,26 +16,33 @@ const ListContainer= styled.div`
     margin-right: 10px;
 `
 
-function ListComponent({title, cards, idList, index}) {
+function ListComponent({title, cards, idList, index, dispatch}) {
+
+
+    const delCol = (e)=>{
+        dispatch(deleteCol(idList))
+    }
 
     // cards.forEach(card=>console.log(card))
 
     return (
         <Draggable draggableId={String(idList)} index={index}>
         {provided => (
-            title!="First list" &&<ListContainer  
+            <ListContainer  
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
-                
                 >
-
                 <Droppable droppableId={String(idList)}>
                     { (provided)=>(
                         
                         <div {...provided.droppableProps}
                             ref={provided.innerRef}>
-                        <h4>{title}</h4>
+                        <h4>{title} <button 
+                                variant="contained" onClick={delCol} >
+                                    <VscTrash style={{backgroundColor:"red", fontSize:20, borderRadius:4 }}/>
+                                </button></h4>
+                        
                         {
                             cards.map((card, index) => 
                                 <CardComponent 

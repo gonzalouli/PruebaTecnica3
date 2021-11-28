@@ -13,10 +13,10 @@ const CardContainer = styled.div`
     margin-bottom: 8px;
 `
 
-const CardComponent=React.memo(({text,id,index,idList, dispatch})=> {
+function CardComponent({text,id,index,idList, dispatch}){
 
-    const delCard = (e)=>{
-        dispatch(deleteCard(id, idList));
+    const delCard = async (e)=>{
+        await dispatch(deleteCard(id, idList));
     }
 
     return (
@@ -42,6 +42,6 @@ const CardComponent=React.memo(({text,id,index,idList, dispatch})=> {
         </Draggable>
 
         )
-})
+}
 
 export default connect()(CardComponent);

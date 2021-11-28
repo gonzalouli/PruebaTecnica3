@@ -20,7 +20,7 @@ function ListComponent({title, cards, idList, index, dispatch}) {
 
 
     const delCol = (e)=>{
-        dispatch(deleteCol(idList))
+         dispatch(deleteCol(idList))
     }
 
     // cards.forEach(card=>console.log(card))

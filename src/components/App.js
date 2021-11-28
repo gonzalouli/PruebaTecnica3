@@ -14,14 +14,14 @@ const ListContainer = styled.div`
 
 class App extends React.Component{
 
-   onDragEnd = result =>{
+   onDragEnd = async result =>{
     const {destination, source, draggableId, type} = result
 
     if(!destination){
       return
     }
 
-    this.props.dispatch(sort(
+    await this.props.dispatch(sort(
       source.droppableId,
       destination.droppableId,
       source.index,

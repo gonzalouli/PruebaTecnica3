@@ -92,9 +92,10 @@ const listReducer = (state = initialState, action)=>{
         
         const modState = [...state]
 
-        const list = state.find(list=> idList===list.id)
+        const list = modState.find(list=> idList===list.id)
         list.cards.splice(id,1)
-        
+
+  
         return modState
     }
 
